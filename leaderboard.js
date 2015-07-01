@@ -17,14 +17,19 @@ if(Meteor.isClient){
 		'player' : function() {
 			return PlayerList.find() // works if fetch attached as well
 		},
-		'otherPlayer' : function() {
-			return "Some other random text"
+		'selectedClass' : function() {
+			if(this._id == Session.get('selectedPlayer'))
+				return "selected"
 		}
 	})
 	Template.leaderboard.events({
 		'click .tester': function(){
-			alert("click on list element with class tester!!")
+			var playerId = this._id
+			Session.set('selectedPlayer', playerId)
 		}
+		/*
+			event-types include dblclick,focus,blur,mouseover,and change
+		*/
 	})
 }
 if(Meteor.isServer){
